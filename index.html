@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Grupo VM</title>
+
+  <!-- AOS CSS (animaciones) -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+
+  <!-- Tus estilos -->
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- HEADER FIJO + MENÚ HAMBURGUESA -->
+  <header>
+    <div class="logo">Grupo VM</div>
+    <button id="btn-menu" class="btn-menu" aria-label="Mostrar menú">☰</button>
+    <nav id="nav-menu">
+      <a href="#inicio">Inicio</a>
+      <a href="#blog">Blog</a>
+      <a href="#cita">Reserva una cita</a>
+    </nav>
+  </header>
+
+  <!-- SECCIÓN INICIO -->
+  <section id="inicio" class="seccion" data-aos="flip-up" data-aos-duration="800">
+    <h1 data-aos="fade-in" data-aos-duration="1000">Descubre Nuestro Mundo</h1>
+    <p data-aos="fade-in" data-aos-duration="1200">
+    Bienvenido a Grupo VM, expertos en crear soluciones digitales a medida: aplicaciones web innovadoras 
+    y software de escritorio eficiente para impulsar tu negocio.
+    </p>
+    <button class="btn-primario" data-aos="fade-in" data-aos-duration="1400">Ver más</button>
+  </section>
+
+  <!-- SECCIÓN BLOG / SERVICIOS -->
+  <section id="blog" class="seccion" data-aos="flip-up" data-aos-duration="800">
+    <h2 data-aos="fade-in" data-aos-duration="1000">Servicios</h2>
+    <div class="grid-servicios">
+      <div class="card-servicio" data-aos="fade-up" data-aos-duration="800">
+        <h3>Desarrollo de apps web</h3>
+        <p>Creamos portales y sistemas en línea 100% adaptativos y seguros.</p>
+        <a href="#cita" class="btn-pequeno">Saber más</a>
+      </div>
+      <div class="card-servicio" data-aos="fade-up" data-aos-duration="1000">
+        <h3>Apps móviles</h3>
+        <p>Aplicaciones nativas e híbridas para iOS y Android.</p>
+        <a href="#cita" class="btn-pequeno">Saber más</a>
+      </div>
+      <div class="card-servicio" data-aos="fade-up" data-aos-duration="1200">
+        <h3>Software de escritorio</h3>
+        <p>Soluciones robustas para Windows, macOS y Linux.</p>
+        <a href="#cita" class="btn-pequeno">Saber más</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECCIÓN RESERVA CITA -->
+  <section id="cita" class="seccion" data-aos="flip-up" data-aos-duration="800">
+    <h2 data-aos="fade-in" data-aos-duration="1000">Reserva una cita</h2>
+    <form id="form-cita">
+      <input type="text"   name="nombre"   placeholder="Tu nombre" required />
+      <select name="producto" required>
+        <option value="">Selecciona un producto</option>
+        <option value="apps_web">Apps web</option>
+        <option value="apps_movil">Apps móviles</option>
+        <option value="software_desktop">Desktop</option>
+      </select>
+      <input type="email"  name="email"    placeholder="Tu correo" required />
+      <button type="submit" class="btn-primario" data-aos="fade-in" data-aos-duration="1200">
+        Enviar
+      </button>
+    </form>
+  </section>
+
+  <!-- BOTÓN WHATSAPP FLOTANTE -->
+  <a href="https://wa.me/51904393143" class="whatsapp" target="_blank" aria-label="WhatsApp">💬</a>
+
+  <!-- AOS JS -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script> AOS.init({ once: true, offset: 150 }); </script>
+
+  <!-- Tu JS -->
+  <script src="script.js"></script>
+</body>
+</html>
+<!-- Fin del HTML -->
