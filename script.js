@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
       try {
         const res = await fetch(
           // ← Sustituye esta URL por la de tu última implementación (Deploy → New deployment → Web app)
-          'https://script.google.com/macros/s/TU_URL_DE_APPS_SCRIPT/exec',
+          'https://script.google.com/macros/s/AKfycbzQxZpWZ69xFa13EgJinJ9fx4SKjSCmpkwrUZPJ2NEa-xZ2WPSmPdMH7fKU_PfTgjkS-g/exec',
           {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
