@@ -1,81 +1,80 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. VERIFICAR QUE LOS ELEMENTOS EXISTAN
+    // Elementos del DOM
     const btnMenu = document.getElementById('btn-menu');
     const navMenu = document.getElementById('nav-menu');
     const formCita = document.getElementById('form-cita');
-
-    // 2. VALIDACIONES INICIALES
-    if (!btnMenu || !navMenu || !formCita) {
-        console.error("Error: Elementos críticos no encontrados en el DOM");
-        return;
+    
+    // Configuración GAS
+    const GAS_URL = 'https://script.google.com/macros/s/AKfycbzl6BDfyRWT-kO9DrkGv7fPnn8G43XsdrT6-j6XOz5myl-zwp0qOpXR4FtIFUwqwjlB/exec';
+  
+    // Menú hamburguesa
+    if (btnMenu && navMenu) {
+      btnMenu.addEventListener('click', () => navMenu.classList.toggle('open'));
+      navMenu.querySelectorAll('a').forEach(link => 
+        link.addEventListener('click', () => navMenu.classList.remove('open'))
+      );
     }
-
-    // 3. MENÚ HAMBURGUESA (CON VALIDACIÓN ADICIONAL)
-    btnMenu.addEventListener('click', () => {
-        navMenu.classList.toggle('open');
-    });
-
-    navMenu.querySelectorAll('a').forEach(link => {
-        link.addEventListener('click', () => {
-            navMenu.classList.remove('open');
-        });
-    });
-
-    // 4. FORMULARIO (CON GESTIÓN COMPLETA DE ERRORES)
-    const URL_APPS_SCRIPT = 'https://script.google.com/macros/s/AKfycbzl6BDfyRWT-kO9DrkGv7fPnn8G43XsdrT6-j6XOz5myl-zwp0qOpXR4FtIFUwqwjlB/exec';
-    const submitBtn = formCita.querySelector('button[type="submit"]');
-
-    if (!submitBtn) {
-        console.error("Error: Botón de submit no encontrado");
-        return;
-    }
-
-    formCita.addEventListener('submit', async (e) => {
+  
+    // Manejo de formulario
+    if (formCita) {
+      const submitBtn = formCita.querySelector('button[type="submit"]');
+      
+      formCita.addEventListener('submit', async (e) => {
         e.preventDefault();
-
-        // 5. VALIDAR CAMPOS ANTES DE ENVIAR
+        
+        // Validar elementos
+        if (!submitBtn) return;
+  
+        // Obtener datos
         const formData = {
-            nombre: formCita.querySelector('[name="nombre"]').value.trim(),
-            producto: formCita.querySelector('[name="producto"]').value.trim(),
-            email: formCita.querySelector('[name="email"]').value.trim()
+          nombre: formCita.nombre.value.trim(),
+          producto: formCita.producto.value.trim(),
+          email: formCita.email.value.trim()
         };
-
+  
+        // Validar campos
         if (!Object.values(formData).every(Boolean)) {
-            alert("⚠️ Por favor completa todos los campos");
-            return;
+          alert('⚠️ Completa todos los campos');
+          return;
         }
-
-        // 6. MANEJO DEL ESTADO DEL BOTÓN
+  
+        // Bloquear botón
         submitBtn.disabled = true;
         const originalText = submitBtn.textContent;
         submitBtn.textContent = 'Enviando...';
-
+  
         try {
-            // 7. ENVÍO CON GESTIÓN DE CORS
-            const response = await fetch(URL_APPS_SCRIPT, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(formData)
-            });
-
-            if (!response.ok) throw new Error(`HTTP ${response.status}`);
-            
-            const data = await response.json();
-            if (data.result !== 'success') throw new Error(data.message);
-
-            // 8. RESET Y FEEDBACK POSITIVO
-            formCita.reset();
-            alert("✅ Cita enviada con éxito");
-
+          // Enviar a GAS
+          const response = await fetch(GAS_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(formData),
+            redirect: 'follow'
+          });
+  
+          // Manejar errores HTTP
+          if (!response.ok) throw new Error(`Error ${response.status}`);
+          
+          // Parsear respuesta
+          const data = await response.json();
+          
+          // Manejar errores lógicos
+          if (data.result !== 'success') throw new Error(data.message);
+  
+          // Éxito
+          alert('✅ Cita registrada');
+          formCita.reset();
+  
         } catch (error) {
-            // 9. MANEJO DE ERRORES DETALLADO
-            console.error("Error en submit:", error);
-            alert(`❌ Fallo en el envío: ${error.message || 'Error desconocido'}`);
-
+          // Manejar errores
+          console.error('Error:', error);
+          alert(`❌ Fallo: ${error.message}`);
+  
         } finally {
-            // 10. RESTAURAR ESTADO INICIAL
-            submitBtn.disabled = false;
-            submitBtn.textContent = originalText;
+          // Restaurar botón
+          submitBtn.disabled = false;
+          submitBtn.textContent = originalText;
         }
-    });
-});
+      });
+    }
+  });
