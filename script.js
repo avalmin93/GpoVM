@@ -1,53 +1,52 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // MENÚ HAMBURGUESA
     const btnMenu = document.getElementById('btn-menu');
     const navMenu = document.getElementById('nav-menu');
-    btnMenu.addEventListener('click', () => {
-      navMenu.classList.toggle('open');
-    });
-    navMenu.querySelectorAll('a').forEach(link =>
+    const formCita = document.getElementById('form-cita');
+    const submitBtn = formCita.querySelector('button[type="submit"]');
+  
+    // Menú hamburguesa
+    btnMenu.addEventListener('click', () => navMenu.classList.toggle('open'));
+    navMenu.querySelectorAll('a').forEach(link => 
       link.addEventListener('click', () => navMenu.classList.remove('open'))
     );
   
-    // ENVÍO DE FORMULARIO vía Apps Script
-    const form = document.getElementById('form-cita');
-    form.addEventListener('submit', async function(e) {
+    // Envío de formulario
+    formCita.addEventListener('submit', async (e) => {
       e.preventDefault();
-  
-      const data = {
-        nombre:   this.nombre.value,
-        producto: this.producto.value,
-        email:    this.email.value
-      };
-  
+      const originalText = submitBtn.textContent;
+      
       try {
-        const res = await fetch(
-          // ← Sustituye esta URL por la de tu última implementación (Deploy → New deployment → Web app)
-          'https://script.google.com/macros/s/AKfycbyR7v_-9Ayq6DrFbIO0iUH81EFQdhvHlpAXU6jFNoOsbtOXCsuGCmZd1gbURMCrJ7gU/exec',
+        submitBtn.textContent = 'Enviando...';
+        submitBtn.disabled = true;
+  
+        const response = await fetch(
+          'https://script.google.com/macros/s/AKfycbxoxE-rq07bzvhmb_PhYMmZvsBMy0qlc05-ogqfkyQNamIox1sUekRLuyb6kPVFgjsS/exec', // ← Reemplaza con tu URL
           {
             method: 'POST',
+            mode: 'cors',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(data)
+            body: JSON.stringify({
+              nombre: formCita.nombre.value,
+              producto: formCita.producto.value,
+              email: formCita.email.value
+            })
           }
         );
   
-        // Si no es 200 lanza error
-        if (!res.ok) {
-          throw new Error(`HTTP error! status: ${res.status}`);
-        }
+        if (!response.ok) throw new Error('Error en la red');
+        
+        const data = await response.json();
+        if (data.result !== 'success') throw new Error(data.message);
   
-        const json = await res.json();
+        alert('✅ ¡Cita enviada! Te contactaremos pronto.');
+        formCita.reset();
   
-        if (json.result === 'success') {
-          alert('✅ Tu cita ha sido enviada correctamente.');
-          form.reset();
-        } else {
-          console.error('Respuesta inesperada del servidor:', json);
-          throw new Error(json.message || 'Error en la respuesta');
-        }
       } catch (err) {
-        console.error('Error al enviar cita:', err);
-        alert('❌ Error al enviar. Intenta luego.');
+        console.error('Error:', err);
+        alert(`❌ Error: ${err.message || 'Intenta nuevamente'}`);
+      } finally {
+        submitBtn.textContent = originalText;
+        submitBtn.disabled = false;
       }
     });
   });
