@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
         submitBtn.disabled = true;
   
         const response = await fetch(
-          'https://script.google.com/macros/s/AKfycbxoxE-rq07bzvhmb_PhYMmZvsBMy0qlc05-ogqfkyQNamIox1sUekRLuyb6kPVFgjsS/exec', // ← Reemplaza con tu URL
+          'https://script.google.com/macros/s/AKfycbzig50wvLu-MUe4x6vAmzwL6W99CR5ZDl-KYcwtcB0L3gfU_1QXKAIZ4H77KlnNbRAu/exec', // ← Reemplaza con tu URL
           {
             method: 'POST',
             mode: 'cors',
