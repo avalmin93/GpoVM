@@ -2,12 +2,15 @@
    RESET Y BASE
    ======================= */
    * {
-    margin: 0; padding: 0; box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
   }
+  
   body {
-    font-family: 'Poppins', sans-serif; /* Fuente moderna */
+    font-family: 'Poppins', sans-serif;
     scroll-behavior: smooth;
-    background: #101010;                /* Fondo más oscuro */
+    background: #101010;
     color: #f5f5f5;
     overflow-x: hidden;
   }
@@ -18,8 +21,8 @@
   header {
     position: fixed;
     top: 0; left: 0; right: 0;
-    height: 60px;
-    background: #1f1f1f;                /* Matched dark */
+    height: 80px;
+    background: #111111;          /* tono intermedio entre #1f1f1f y negro puro */
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -27,13 +30,19 @@
     z-index: 1000;
     box-shadow: 0 2px 6px rgba(0,0,0,0.5);
   }
+  
   .logo img {
-    height: 40px;                       /* Ajusta según tu logo */
+    height: 75px;                /* doble de 80px */
   }
+  
+  /* =======================
+     NAVEGACIÓN
+     ======================= */
   nav {
-    display: flex;                      /* Siempre visible en desktop */
+    display: flex;
     align-items: center;
   }
+  
   nav a {
     color: #ddd;
     margin-left: 1.5rem;
@@ -41,8 +50,9 @@
     font-weight: 500;
     transition: color 0.2s;
   }
+  
   nav a:hover {
-    color: #E10600;                     /* Rojo del logo */
+    color: #E10600;
   }
   
   /* =======================
@@ -62,7 +72,7 @@
      ======================= */
   .seccion {
     min-height: 100vh;
-    padding: 100px 2rem 2rem;
+    padding: 120px 2rem 2rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -70,34 +80,71 @@
   }
   
   /* =======================
-     BOTONES
+     “VER MÁS” ENLACE GRANDOTE
+     ======================= */
+  .btn-ver-mas {
+    display: block;
+    margin: 1.5rem auto 0;
+    width: max-content;
+    font-size: 3.6rem;             /* doble de 1.8rem */
+    text-decoration: none;
+    padding: 2.4rem 4.8rem;        /* doble de 1.2rem/2.4rem */
+    transition: transform 0.2s;
+  }
+  
+  .btn-ver-mas:hover {
+    transform: scale(1.05);
+  }
+  
+  /* =======================
+     DESTACADAS (carrusel simple)
+     ======================= */
+  .destacadas {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin: 2rem 0;
+  }
+  
+  .destacadas img {
+    width: calc(33.333% - 0.667rem);
+    height: 160px;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+  
+  /* =======================
+     BOTONES GENERALES
      ======================= */
   .btn-primario {
-    background: #E10600;                /* Rojo vibrante */
+    background: #E10600;
     color: #fff;
     border: none;
     padding: 0.8rem 1.5rem;
-    border-radius: 25px;                /* Más orgánico */
+    border-radius: 25px;
     cursor: pointer;
     font-size: 1rem;
     transition: transform 0.2s;
   }
+  
   .btn-primario:hover {
     transform: scale(1.05);
   }
   
   .btn-pequeno {
-    background: #00c853;                /* Verde secundario */
+    background: #E10600;
     color: #fff;
     padding: 0.4rem 0.8rem;
     border-radius: 4px;
     text-decoration: none;
     font-size: 0.9rem;
     display: inline-block;
-    transition: opacity 0.2s;
+    transition: opacity 0.2s, transform 0.2s;
   }
+  
   .btn-pequeno:hover {
     opacity: 0.8;
+    transform: translateY(-2px);
   }
   
   /* =======================
@@ -105,10 +152,11 @@
      ======================= */
   .grid-servicios {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(240px,1fr));
+    grid-template-columns: repeat(3, 1fr);
     gap: 1.5rem;
     margin-top: 1rem;
   }
+  
   .card-servicio {
     background: #1a1a1a;
     padding: 1rem;
@@ -119,20 +167,28 @@
   }
   
   /* =======================
-     FORMULARIO
+     FORMULARIO CENTRADO
      ======================= */
+  #cita {
+    align-items: center;
+  }
+  
   #form-cita {
+    margin: 0 auto;
+    width: 100%;
+    max-width: 400px;
     display: flex;
     flex-direction: column;
     gap: 1rem;
-    max-width: 400px;
   }
+  
   #form-cita input,
   #form-cita select {
     padding: 0.8rem;
     border: none;
     border-radius: 5px;
   }
+  
   #form-cita select {
     background: #fff;
     color: #000;
@@ -154,6 +210,7 @@
     box-shadow: 0 4px 10px rgba(0,0,0,0.3);
     transition: transform 0.2s;
   }
+  
   .whatsapp:hover {
     transform: scale(1.1);
   }
@@ -163,15 +220,18 @@
      ======================= */
   /* MÓVIL (≤600px) */
   @media (max-width: 600px) {
+    header {
+      height: 100px;              /* espacio extra para logo grande */
+    }
     .btn-menu {
-      display: block;                 /* Aparece hamburguesa */
+      display: block;
     }
     nav {
       position: absolute;
-      top: 60px; left: 0; right: 0;
-      background: #1f1f1f;
+      top: 100px; left: 0; right: 0;
+      background: #131313;
       flex-direction: column;
-      display: none;                  /* Oculto por defecto */
+      display: none;
       text-align: center;
       padding: 1rem 0;
     }
@@ -182,7 +242,7 @@
       margin: 0.5rem 0;
     }
     .seccion {
-      padding: 80px 1rem 1rem;
+      padding: 140px 1rem 1rem;
     }
     .grid-servicios {
       grid-template-columns: 1fr;
@@ -197,11 +257,9 @@
   /* TABLET (601–992px) */
   @media (min-width: 601px) and (max-width: 992px) {
     .grid-servicios {
-      grid-template-columns: repeat(2,1fr);
+      grid-template-columns: repeat(2, 1fr);
     }
     .seccion {
-      padding: 90px 1.5rem 1.5rem;
+      padding: 130px 1.5rem 1.5rem;
     }
-  }
-  
-
+  }  

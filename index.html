@@ -11,7 +11,7 @@
   <!-- AOS CSS (animaciones) -->
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
 
-  <!-- Tus estilos revisados -->
+  <!-- Tu CSS -->
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
@@ -38,12 +38,27 @@
       Bienvenido a Grupo VM, expertos en crear soluciones digitales a medida: aplicaciones web innovadoras 
       y software de escritorio eficiente para impulsar tu negocio.
     </p>
-    <button class="btn-primario" data-aos="fade-in" data-aos-duration="1400">Ver más</button>
+    <a href="#blog"
+       id="btn-ver-mas"
+       class="btn-primario btn-ver-mas"
+       data-aos="fade-in"
+       data-aos-duration="1400">
+      Ver más
+    </a>
   </section>
 
-  <!-- SECCIÓN BLOG / SERVICIOS -->
+  <!-- SECCIÓN BLOG / IMÁGENES DESTACADAS + SERVICIOS -->
   <section id="blog" class="seccion" data-aos="flip-up" data-aos-duration="800">
     <h2 data-aos="fade-in" data-aos-duration="1000">Servicios</h2>
+
+    <!-- Carrusel de imágenes libres (Unsplash) -->
+    <div class="destacadas">
+      <img src="https://images.unsplash.com/photo-1506765515384-028b60a970df?&w=600" alt="Imagen 1">
+      <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?&w=600" alt="Imagen 2">
+      <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?&w=600" alt="Imagen 3">
+    </div>
+
+    <!-- Grid de servicios -->
     <div class="grid-servicios">
       <div class="card-servicio" data-aos="fade-up" data-aos-duration="800">
         <h3>Desarrollo de apps web</h3>
@@ -92,3 +107,4 @@
   <script src="script.js"></script>
 </body>
 </html>
+
