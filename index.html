@@ -5,17 +5,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Grupo VM</title>
 
+  <!-- Google Fonts: Poppins -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
   <!-- AOS CSS (animaciones) -->
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
 
-  <!-- Tus estilos -->
+  <!-- Tus estilos revisados -->
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
 
-  <!-- HEADER FIJO + MENÚ HAMBURGUESA -->
+  <!-- HEADER FIJO + MENÚ -->
   <header>
-    <div class="logo">Grupo VM</div>
+    <div class="logo">
+      <a href="#inicio">
+        <img src="images/logo.png" alt="Grupo VM Logo">
+      </a>
+    </div>
     <button id="btn-menu" class="btn-menu" aria-label="Mostrar menú">☰</button>
     <nav id="nav-menu">
       <a href="#inicio">Inicio</a>
@@ -28,8 +35,8 @@
   <section id="inicio" class="seccion" data-aos="flip-up" data-aos-duration="800">
     <h1 data-aos="fade-in" data-aos-duration="1000">Descubre Nuestro Mundo</h1>
     <p data-aos="fade-in" data-aos-duration="1200">
-    Bienvenido a Grupo VM, expertos en crear soluciones digitales a medida: aplicaciones web innovadoras 
-    y software de escritorio eficiente para impulsar tu negocio.
+      Bienvenido a Grupo VM, expertos en crear soluciones digitales a medida: aplicaciones web innovadoras 
+      y software de escritorio eficiente para impulsar tu negocio.
     </p>
     <button class="btn-primario" data-aos="fade-in" data-aos-duration="1400">Ver más</button>
   </section>
@@ -77,12 +84,11 @@
   <!-- BOTÓN WHATSAPP FLOTANTE -->
   <a href="https://wa.me/51904393143" class="whatsapp" target="_blank" aria-label="WhatsApp">💬</a>
 
-  <!-- AOS JS -->
+  <!-- AOS JS e inicialización -->
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script> AOS.init({ once: true, offset: 150 }); </script>
 
-  <!-- Tu JS -->
+  <!-- Tu JS revisado -->
   <script src="script.js"></script>
 </body>
 </html>
-<!-- Fin del HTML -->

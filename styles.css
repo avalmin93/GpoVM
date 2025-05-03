@@ -1,98 +1,207 @@
-/* RESET */
-* { margin: 0; padding: 0; box-sizing: border-box; }
-body {
-  font-family: 'Segoe UI', sans-serif;
-  scroll-behavior: smooth;
-  background: #1c2224;
-  color: #f5f5f5;
-  overflow-x: hidden;
-}
-
-/* HEADER */
-header {
-  position: fixed; top: 0; left: 0; right: 0;
-  height: 60px; background: #1f2a2e;
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 0 2rem; z-index: 1000;
-}
-.logo { color: #fff; font-size: 1.2rem; }
-nav a {
-  color: #ddd; margin-left: 1.5rem; text-decoration: none; font-weight: 500;
-}
-nav a:hover { color: #fff; }
-
-/* BOTÓN HAMBURGUESA */
-.btn-menu {
-  display: none; background: none; border: none;
-  font-size: 1.8rem; color: #fff; cursor: pointer;
-}
-
-/* SECCIONES */
-.seccion {
-  min-height: 100vh; padding: 100px 2rem 2rem;
-  display: flex; flex-direction: column; justify-content: center; gap: 1rem;
-}
-
-/* BOTONES */
-.btn-primario {
-  background: #00c853; color: #fff; border: none;
-  padding: 0.8rem 1.5rem; border-radius: 5px; cursor: pointer; font-size: 1rem;
-}
-.btn-pequeno {
-  background: #0288d1; color: #fff; padding: 0.4rem 0.8rem;
-  border-radius: 4px; text-decoration: none; font-size: 0.9rem; display: inline-block;
-}
-.btn-pequeno:hover { opacity: 0.9; }
-
-/* GRID SERVICIOS */
-.grid-servicios {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px,1fr));
-  gap: 1.5rem; margin-top: 1rem;
-}
-.card-servicio {
-  background: #2a3336; padding: 1rem; border-radius: 8px;
-  display: flex; flex-direction: column; gap: 0.5rem;
-}
-
-/* FORMULARIO */
-#form-cita {
-  display: flex; flex-direction: column; gap: 1rem; max-width: 400px;
-}
-#form-cita input,
-#form-cita select {
-  padding: 0.8rem; border: none; border-radius: 5px;
-}
-#form-cita select { background: #fff; color: #000; }
-
-/* WHATSAPP FLOTANTE */
-.whatsapp {
-  position: fixed; bottom: 20px; right: 20px;
-  background: #25d366; color: #fff; font-size: 2rem;
-  padding: 0.6rem; border-radius: 50%; text-decoration: none;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-}
-
-/* MEDIA QUERIES */
-
-/* MÓVIL (≤600px) */
-@media (max-width: 600px) {
-  .btn-menu { display: block; }
-  nav {
-    position: absolute; top: 60px; left: 0; right: 0;
-    background: #1f2a2e; flex-direction: column;
-    display: none; text-align: center; padding: 1rem 0;
+/* =======================
+   RESET Y BASE
+   ======================= */
+   * {
+    margin: 0; padding: 0; box-sizing: border-box;
   }
-  nav.open { display: flex; }
-  nav a { margin: 0.5rem 0; }
-  .seccion { padding: 80px 1rem 1rem; }
-  .grid-servicios { grid-template-columns: 1fr; }
-  .whatsapp { bottom: 15px; right: 15px; font-size: 1.6rem; }
-}
-
-/* TABLET (601–992px) */
-@media (min-width: 601px) and (max-width: 992px) {
-  .grid-servicios { grid-template-columns: repeat(2,1fr); }
-  .seccion { padding: 90px 1.5rem 1.5rem; }
-}
+  body {
+    font-family: 'Poppins', sans-serif; /* Fuente moderna */
+    scroll-behavior: smooth;
+    background: #101010;                /* Fondo más oscuro */
+    color: #f5f5f5;
+    overflow-x: hidden;
+  }
+  
+  /* =======================
+     HEADER
+     ======================= */
+  header {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: 60px;
+    background: #1f1f1f;                /* Matched dark */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2rem;
+    z-index: 1000;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.5);
+  }
+  .logo img {
+    height: 40px;                       /* Ajusta según tu logo */
+  }
+  nav {
+    display: flex;                      /* Siempre visible en desktop */
+    align-items: center;
+  }
+  nav a {
+    color: #ddd;
+    margin-left: 1.5rem;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+  nav a:hover {
+    color: #E10600;                     /* Rojo del logo */
+  }
+  
+  /* =======================
+     BOTÓN HAMBURGUESA
+     ======================= */
+  .btn-menu {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 1.8rem;
+    color: #f5f5f5;
+    cursor: pointer;
+  }
+  
+  /* =======================
+     SECCIONES
+     ======================= */
+  .seccion {
+    min-height: 100vh;
+    padding: 100px 2rem 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1rem;
+  }
+  
+  /* =======================
+     BOTONES
+     ======================= */
+  .btn-primario {
+    background: #E10600;                /* Rojo vibrante */
+    color: #fff;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 25px;                /* Más orgánico */
+    cursor: pointer;
+    font-size: 1rem;
+    transition: transform 0.2s;
+  }
+  .btn-primario:hover {
+    transform: scale(1.05);
+  }
+  
+  .btn-pequeno {
+    background: #00c853;                /* Verde secundario */
+    color: #fff;
+    padding: 0.4rem 0.8rem;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 0.9rem;
+    display: inline-block;
+    transition: opacity 0.2s;
+  }
+  .btn-pequeno:hover {
+    opacity: 0.8;
+  }
+  
+  /* =======================
+     GRID SERVICIOS
+     ======================= */
+  .grid-servicios {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px,1fr));
+    gap: 1.5rem;
+    margin-top: 1rem;
+  }
+  .card-servicio {
+    background: #1a1a1a;
+    padding: 1rem;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  /* =======================
+     FORMULARIO
+     ======================= */
+  #form-cita {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    max-width: 400px;
+  }
+  #form-cita input,
+  #form-cita select {
+    padding: 0.8rem;
+    border: none;
+    border-radius: 5px;
+  }
+  #form-cita select {
+    background: #fff;
+    color: #000;
+  }
+  
+  /* =======================
+     WHATSAPP FLOTANTE
+     ======================= */
+  .whatsapp {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #25d366;
+    color: #fff;
+    font-size: 2rem;
+    padding: 0.6rem;
+    border-radius: 50%;
+    text-decoration: none;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    transition: transform 0.2s;
+  }
+  .whatsapp:hover {
+    transform: scale(1.1);
+  }
+  
+  /* =======================
+     MEDIA QUERIES
+     ======================= */
+  /* MÓVIL (≤600px) */
+  @media (max-width: 600px) {
+    .btn-menu {
+      display: block;                 /* Aparece hamburguesa */
+    }
+    nav {
+      position: absolute;
+      top: 60px; left: 0; right: 0;
+      background: #1f1f1f;
+      flex-direction: column;
+      display: none;                  /* Oculto por defecto */
+      text-align: center;
+      padding: 1rem 0;
+    }
+    nav.open {
+      display: flex;
+    }
+    nav a {
+      margin: 0.5rem 0;
+    }
+    .seccion {
+      padding: 80px 1rem 1rem;
+    }
+    .grid-servicios {
+      grid-template-columns: 1fr;
+    }
+    .whatsapp {
+      bottom: 15px;
+      right: 15px;
+      font-size: 1.6rem;
+    }
+  }
+  
+  /* TABLET (601–992px) */
+  @media (min-width: 601px) and (max-width: 992px) {
+    .grid-servicios {
+      grid-template-columns: repeat(2,1fr);
+    }
+    .seccion {
+      padding: 90px 1.5rem 1.5rem;
+    }
+  }
+  
 
