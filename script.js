@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const navMenu = document.getElementById('nav-menu');
     const formCita = document.getElementById('form-cita');
     const submitBtn = formCita.querySelector('button[type="submit"]');
+    const URL_APPS_SCRIPT = 'https://script.google.com/macros/s/AKfycbzyr1R2YyzLXPvCx4cmIlMZr7d5iO3Xk4LxVxkLO2t7sw_JHTn_jyk9dJvUgv5KXT1F/exec'; // Reemplaza con tu URL de Apps Script;
   
     // Menú hamburguesa
     btnMenu.addEventListener('click', () => navMenu.classList.toggle('open'));
@@ -20,10 +21,10 @@ document.addEventListener('DOMContentLoaded', () => {
         submitBtn.disabled = true;
   
         const response = await fetch(
-          'https://script.google.com/macros/s/AKfycbzig50wvLu-MUe4x6vAmzwL6W99CR5ZDl-KYcwtcB0L3gfU_1QXKAIZ4H77KlnNbRAu/exec', // ← Reemplaza con tu URL
+          URL_APPS_SCRIP, // ← Reemplaza con tu URL
           {
             method: 'POST',
-            mode: 'cors',
+            mode: 'no-cors',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
               nombre: formCita.nombre.value,
