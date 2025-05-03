@@ -4,77 +4,82 @@ document.addEventListener('DOMContentLoaded', () => {
     const navMenu = document.getElementById('nav-menu');
     const formCita = document.getElementById('form-cita');
     
-    // Configuración GAS
+    // Configuración
     const GAS_URL = 'https://script.google.com/macros/s/AKfycbzl6BDfyRWT-kO9DrkGv7fPnn8G43XsdrT6-j6XOz5myl-zwp0qOpXR4FtIFUwqwjlB/exec';
-  
+    const PROXY_URL = 'https://cors-anywhere.herokuapp.com/'; // Proxy CORS
+    
     // Menú hamburguesa
     if (btnMenu && navMenu) {
-      btnMenu.addEventListener('click', () => navMenu.classList.toggle('open'));
-      navMenu.querySelectorAll('a').forEach(link => 
-        link.addEventListener('click', () => navMenu.classList.remove('open'))
-      );
+        btnMenu.addEventListener('click', () => navMenu.classList.toggle('open'));
+        navMenu.querySelectorAll('a').forEach(link => 
+            link.addEventListener('click', () => navMenu.classList.remove('open'))
+        );
     }
-  
+
     // Manejo de formulario
     if (formCita) {
-      const submitBtn = formCita.querySelector('button[type="submit"]');
-      
-      formCita.addEventListener('submit', async (e) => {
-        e.preventDefault();
+        const submitBtn = formCita.querySelector('button[type="submit"]');
         
-        // Validar elementos
-        if (!submitBtn) return;
-  
-        // Obtener datos
-        const formData = {
-          nombre: formCita.nombre.value.trim(),
-          producto: formCita.producto.value.trim(),
-          email: formCita.email.value.trim()
-        };
-  
-        // Validar campos
-        if (!Object.values(formData).every(Boolean)) {
-          alert('⚠️ Completa todos los campos');
-          return;
-        }
-  
-        // Bloquear botón
-        submitBtn.disabled = true;
-        const originalText = submitBtn.textContent;
-        submitBtn.textContent = 'Enviando...';
-  
-        try {
-          // Enviar a GAS
-          const response = await fetch(GAS_URL, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(formData),
-            redirect: 'follow'
-          });
-  
-          // Manejar errores HTTP
-          if (!response.ok) throw new Error(`Error ${response.status}`);
-          
-          // Parsear respuesta
-          const data = await response.json();
-          
-          // Manejar errores lógicos
-          if (data.result !== 'success') throw new Error(data.message);
-  
-          // Éxito
-          alert('✅ Cita registrada');
-          formCita.reset();
-  
-        } catch (error) {
-          // Manejar errores
-          console.error('Error:', error);
-          alert(`❌ Fallo: ${error.message}`);
-  
-        } finally {
-          // Restaurar botón
-          submitBtn.disabled = false;
-          submitBtn.textContent = originalText;
-        }
-      });
+        formCita.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            if (!submitBtn) return;
+
+            // Validar campos
+            const campos = {
+                nombre: formCita.nombre.value.trim(),
+                producto: formCita.producto.value.trim(),
+                email: formCita.email.value.trim()
+            };
+
+            if (!Object.values(campos).every(Boolean)) {
+                alert('⚠️ Todos los campos son obligatorios');
+                return;
+            }
+
+            // Estado de carga
+            submitBtn.disabled = true;
+            const textoOriginal = submitBtn.textContent;
+            submitBtn.textContent = 'Enviando...';
+
+            try {
+                // Usar proxy + GAS
+                const respuesta = await fetch(PROXY_URL + GAS_URL, {
+                    method: 'POST',
+                    headers: { 
+                        'Content-Type': 'application/json',
+                        'X-Requested-With': 'XMLHttpRequest' // Cabecera importante
+                    },
+                    body: JSON.stringify(campos),
+                    mode: 'cors' // Forzar modo CORS
+                });
+
+                // Manejar errores HTTP
+                if (!respuesta.ok) {
+                    const errorTexto = await respuesta.text();
+                    throw new Error(`Error ${respuesta.status}: ${errorTexto}`);
+                }
+
+                // Parsear y validar respuesta
+                const datos = await respuesta.json();
+                if (datos.result !== 'success') {
+                    throw new Error(datos.message || 'Error desconocido');
+                }
+
+                // Éxito
+                formCita.reset();
+                alert('✅ ¡Cita registrada con éxito!');
+
+            } catch (error) {
+                // Manejo de errores
+                console.error('Error en envío:', error);
+                alert(`❌ Error: ${error.message || 'Fallo en la conexión'}`);
+
+            } finally {
+                // Restaurar botón
+                submitBtn.disabled = false;
+                submitBtn.textContent = textoOriginal;
+            }
+        });
     }
-  });
+});
